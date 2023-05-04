@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kahoot Question ESP
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.01
 // @description  shows answers to kahoot questions
 // @author       dweltstorm
 // @match        https://kahoot.it/*
@@ -48,7 +48,7 @@ function boxes() {
 }
 
 $(window).keyup(e => {
-    if(e.ctrlKey && e.altKey && e.key == 'A') {
+    if(e.ctrlKey && e.altKey && e.key == 'e') {
         boxes().map(x => {
             x.css({'background-color':'black'})
         })
