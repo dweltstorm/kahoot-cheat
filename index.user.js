@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Kahoot Question ESP
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
+// @version      1.0
+// @description  shows answers to kahoot questions
 // @author       dweltstorm
-// @match        https://kahoot.it/
+// @match        https://kahoot.it/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kahoot.it
 // @grant        none
 // @require      https://code.jquery.com/jquery-3.6.4.js
@@ -23,7 +23,7 @@ async function findKahoot(name) {
 	let response = await fetch('/rest/kahoots/'+id);
 	return await response.json()
 }
-function quizId() {
+function questionIndex() {
     return $("[data-functional-selector='question-index-counter']").text().match(/^\d+/g)[0];
 }
 var kahoot;
@@ -48,13 +48,12 @@ function boxes() {
 }
 
 $(window).keyup(e => {
-    if(e.key == 'H') {
+    if(e.ctrlKey && e.altKey && e.key == 'A') {
         boxes().map(x => {
-            if(getAnswers().includes(boxes().indexOf(x))) {
-                x.css({'background-color':'green'})
-            } else {
-                x.css({'background-color':'black'})
-            }
+            x.css({'background-color':'black'})
+        })
+        getAnswers().forEach(x => {
+            boxes()[x].css({'background-color':'green'})
         })
     }
 })
